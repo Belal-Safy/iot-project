@@ -16,6 +16,7 @@ def getAllPeople():
     formatted_people = []
     for person_id, person_data in people.items():
         person_data['id'] = person_id
+        person_data['images'] = None
         formatted_people.append(person_data)
         
     people = formatted_people
@@ -50,7 +51,7 @@ def addPerson():
             return ResponseHandler.error_response(error='Invalid image format', status_code=400)
         # Generate a random filename
         random_filename = str(uuid.uuid4()) + "." + img.filename.rsplit('.', 1)[1].lower()
-        image_path = os.path.join("public/images/people", random_filename)
+        image_path = os.path.join("static/images/people", random_filename)
 
         # Save the image locally
         img.save(image_path)
@@ -71,9 +72,10 @@ def addPerson():
     
     # Add person to database
     person['images'] = user_images
-    person['created_at'] = int(time.time())
-    person['updated_at'] = int(time.time())
-    ()
+    person['created_at'] = int(time.time() * 1000)
+    person['updated_at'] = int(time.time() * 1000)
+    person['status'] = "not found"
+
     ref = db.reference('people')
     new_person_ref = ref.push(person)
     # Return response with person ID
@@ -85,7 +87,7 @@ def updatePerson(person_id):
     ref = db.reference('people')
     person_ref = ref.child(person_id)
     if person_ref.get():
-        data['updated_at'] = int(time.time())
+        data['updated_at'] = int(time.time() * 1000)
         person_ref.update(data)
         return ResponseHandler.success_response(msg='Person updated successfully')
     else:

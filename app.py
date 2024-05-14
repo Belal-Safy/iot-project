@@ -5,7 +5,7 @@ from controllers.PersonController import getAllPeople, getPerson, addPerson, upd
 
 # ------------------------------------------------ Config ---------------------------------------------
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
 
 # ------------------------------------------------ Main Route ---------------------------------------------
 @app.route("/")

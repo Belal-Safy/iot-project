@@ -9,7 +9,7 @@ from controllers.PersonController import getAllPeople
 # ----------------------- Get Current Frame From ESP32 Cam -----------------------
 # 
 #
-def download_image(url, save_directory="public/images/detected"):
+def download_image(url, save_directory="static/images/detected"):
     # Make HTTP request to get the image
     response = requests.get(url)
     if response.status_code == 200:

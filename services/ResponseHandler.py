@@ -1,19 +1,24 @@
 from flask import jsonify
+import flask
 
 class ResponseHandler:
     @staticmethod
     def success_response(msg=None, data=None, status_code=200):
-        response = {
+        res = {
             "status": status_code,
             "msg": msg,
             "data": data
         }
-        return jsonify(response), status_code
+        
+        response = flask.jsonify(res)
+        return response, status_code
 
     @staticmethod
     def error_response(error=None, status_code=400):
-        response = {
+        res = {
             "status": status_code,
             "error": error
         }
-        return jsonify(response), status_code
+        
+        response = flask.jsonify(res)
+        return response, status_code
